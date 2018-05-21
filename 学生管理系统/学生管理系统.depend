@@ -1,0 +1,44 @@
+# depslib dependency file v1.0
+1525860169 source:f:\yjh\学生管理系统\main.c
+	"head.h"
+
+1525950674 f:\yjh\学生管理系统\head.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<unistd.h>
+	<errno.h>
+
+1525950674 source:f:\yjh\学生管理系统\head.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<unistd.h>
+	<errno.h>
+
+1525941292 source:f:\yjh\学生管理系统\其他函数.c
+	"head.h"
+
+1525953738 source:f:\yjh\学生管理系统\学生端.c
+	"head.h"
+
+1525941272 source:f:\yjh\学生管理系统\教师端.c
+	"head.h"
+
+1525951723 source:f:\yjh\学生管理系统\管理员端.c
+	"head.h"
+
+1525664946 source:f:\yjh\学生管理系统\链表.c
+	"head.h"
+
+1525953656 source:f:\yjh\学生管理系统\学生信息链表.c
+	"head.h"
+
+1525946276 source:f:\yjh\学生管理系统\文件操作.c
+	"head.h"
+
+1525952227 source:f:\yjh\学生管理系统\账号注册及登录验证.c
+	"head.h"
+
