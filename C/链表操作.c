@@ -66,12 +66,12 @@ void del(linklist phead) {      //删除结点
 void Print(linklist phead, int n) {     //打印链表内容
     linklist p = phead;  //p指向第一个结点
     if (n==1)           //n=1时表示正序输出
-        while (p->rlist != phead) {     //若p不为头结点
+        while (p->rlist != phead) {     //若p不为最后一个结点
             p = p->rlist;               //让p指向后一个结点
             printf("%d\n", p->x);       //打印该结点的数据
         }
     else                //否则表示逆序输出
-        while (p->llist != phead) {      //若p不为头结点
+        while (p->llist != phead) {      //若p不为最后一个结点
             p = p->llist;               //让p指向前一个结点
             printf("%d\n", p->x);       //打印该结点的数据
         }
