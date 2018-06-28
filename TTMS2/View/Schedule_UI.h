@@ -14,6 +14,10 @@ int Schedule_UI_Delete(int id);
 
 int Schedule_UI_Query(int id);
 
+int Schedule_UI_query(char *play_name);
+
+void Schedule_UI_Show(void);
+
 void Schedule_UI_MgtEntry(int play_id);
 
 /*以列表模式显示给定剧目的演出计划信息*/

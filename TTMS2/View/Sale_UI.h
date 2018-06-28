@@ -13,12 +13,12 @@ void Sale_UI_ShowScheduler(int playID);
 
 
 //售票界面
-inline int Sale_UI_SellTicket(ticket_list_t tickList, seat_list_t seatList);
+int Sale_UI_SellTicket(int schedule_id);
 
 //管理售票的主界面
 void Sale_UI_MgtEntry(void);
 
 //退票
-void Sale_UI_ReturnTicket();
+int Sale_UI_ReturnTicket(int schedule_id);
 
 #endif

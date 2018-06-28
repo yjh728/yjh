@@ -83,6 +83,8 @@ int Ticket_Srv_StatRevBySchID(int schedule_id, int *soldCount){
             (*soldCount)++;
             value += p->data.price;
         }
+        if (sale.type == SALE_RETURN)
+            (*soldCount)--;
 	}
 	List_Destroy(list, ticket_node_t);
 	return value;
@@ -117,7 +119,14 @@ int SalesAnalysis_Srv_CompSaleVal(int usrID, ttms_date_t stData, ttms_date_t end
     List_Init(saleList, sale_node_t);
     Sale_Perst_SelByID(saleList, usrID);
     List_ForEach(saleList, pSale) {
-        amount += pSale->data.value;
+        if (pSale->data.date.year>=stData.year && pSale->data.date.year<=endData.year &&
+            pSale->data.date.month>=stData.month && pSale->data.date.month<=endData.month &&
+            pSale->data.date.day>=stData.day && pSale->data.date.day<=endData.day) {
+            if (pSale->data.type == SALE_SELL)
+                amount += pSale->data.value;
+            if (pSale->data.type == SALE_RETURN)
+                amount -= pSale->data.value;
+        }
     }
     List_Destroy(saleList, sale_node_t);
     return amount;

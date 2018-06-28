@@ -52,7 +52,7 @@ int Seat_Srv_FetchValidByRoomID(seat_list_t list, int roomID) {
 		}
 	}
 	Seat_Srv_SortSeatList(list);
-	return 0;
+	return SeatCount;
 }
 
 //根据行、列数初始化演出厅的座位
@@ -60,18 +60,14 @@ int Seat_Srv_RoomInit(seat_list_t list, int roomID, int rowsCount,
 		int colsCount) {
 	int i, j;
 	seat_node_t *p;
-	//批量获取主键
-//	long seatID=EntKey_Srv_CompNewKeys("Seat", rowsCount*colsCount);
 	//先按行列数生成默认座位，形成链表
 	for (i = 1; i <= rowsCount; i++){
 		for (j = 1; j <= colsCount; j++) {
 			p = (seat_node_t *) malloc(sizeof(seat_node_t));
-//			p->data.id = seatID;
 			p->data.roomID = roomID;
 			p->data.row = i;
 			p->data.column = j;
 			p->data.status = SEAT_GOOD;
-//			seatID++;
 			List_AddTail(list, p);
 		}
 	}
@@ -120,6 +116,5 @@ seat_node_t * Seat_Srv_FindByRowCol(seat_list_t list, int row,
 }
 
 seat_node_t * Seat_Srv_FindByID(seat_list_t list, int rowID) {
-
 	return NULL;
 }

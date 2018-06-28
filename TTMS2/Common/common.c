@@ -76,9 +76,9 @@ ttms_time_t TimeNow(){
 	struct tm *timeNow;         //实例化tm结构指针
 	time(&now);
 	timeNow = localtime(&now);
-	curTime.hour=timeNow->tm_hour;
-	curTime.minute=timeNow->tm_min;
-	curTime.second=timeNow->tm_sec;
+	curTime.hour = timeNow->tm_hour;
+	curTime.minute = timeNow->tm_min;
+	curTime.second = timeNow->tm_sec;
 	return curTime;
 }
 

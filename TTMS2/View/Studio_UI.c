@@ -16,19 +16,15 @@ extern account_t gl_CurUser;
 void Studio_UI_MgtEntry(void) {
 	int i, id;
 	char choice;
-
 	studio_list_t head;
 	studio_node_t *pos;
 	Pagination_t paging;
-
 	List_Init(head, studio_node_t);
 	paging.offset = 0;
 	paging.pageSize = STUDIO_PAGE_SIZE;
-
 	//载入数据
 	paging.totalRecords = Studio_Srv_FetchAll(head);
 	Paging_Locate_FirstPage(head, paging);
-
 	do {
 		system("cls");
 		printf("\n==================================================================\n");
@@ -59,8 +55,8 @@ void Studio_UI_MgtEntry(void) {
 		printf(
 				"\n==================================================================\n");
 		printf("功能选择:");//Your Choice
-		fflush(stdin);
 		scanf("%c", &choice);
+		fflush(stdin);
 		switch (choice) {
 		if(gl_CurUser.type==9){
 			case 'a':
@@ -123,23 +119,22 @@ int Studio_UI_Add(void) {
 	studio_t rec;
 	int newRecCount = 0;
 	char choice;
-
 	do {
+        system("cls");
 		printf("\n=======================================================\n");
 		printf("********************  添加演出厅  *********************\n");
 		printf("-------------------------------------------------------\n");
 		printf("演出厅名字:");
-		fflush(stdin);
 		gets(rec.name);
+		fflush(stdin);
 		printf("座位行数:");
-		fflush(stdin);
 		scanf("%d", &(rec.rowsCount));
-		printf("座位列数:");
 		fflush(stdin);
+		printf("座位列数:");
 		scanf("%d", &(rec.colsCount));
+		fflush(stdin);
 		rec.seatsCount = 0;
 		printf("=======================================================\n");
-
 		if (Studio_Srv_Add(&rec)) {
 			newRecCount += 1;
 			printf("添加演出厅成功!\n");
@@ -147,8 +142,8 @@ int Studio_UI_Add(void) {
 			printf("添加演出厅失败!\n");
 		printf("-------------------------------------------------------\n");
 		printf("[A]添加更多, [R]返回:");
-		fflush(stdin);
 		scanf("%c", &choice);
+		fflush(stdin);
 	} while ('a' == choice || 'A' == choice);
 	return newRecCount;
 }
@@ -159,62 +154,54 @@ int Studio_UI_Modify(int id) {
 	int newrow, newcolumn;
 	seat_list_t list;
 	int seatcount;
-
-	/*Load record*/
 	if (!Studio_Srv_FetchByID(id, &rec)) {
 		printf("这个房间不存在!\n键入[Enter]键返回!\n");
 		getchar();
 		return 0;
 	}
-
 	printf("\n=======================================================\n");
 	printf("*********************  更新演出厅  *********************\n");
 	printf("-------------------------------------------------------\n");
 	printf("演出厅ID:%d\n", rec.id);
 	printf("演出厅名字[%s]:", rec.name);
-	fflush(stdin);
 	gets(rec.name);
+	fflush(stdin);
 	List_Init(list, seat_node_t);
 	seatcount = Seat_Srv_FetchByRoomID(list, rec.id);
 	if (seatcount) {
-		do {			//如果座位文件中已有座位信息，则更新的行列必须比以前大，否则不允许更改
+		do {//如果座位文件中已有座位信息，则更新的行列必须比以前大，否则不允许更改
 			printf("座位行数应该 >= [%d]:", rec.rowsCount);
-			fflush(stdin);
 			scanf("%d", &(newrow));
-			printf("座位列数应该 >= [%d]:", rec.colsCount);
 			fflush(stdin);
+			printf("座位列数应该 >= [%d]:", rec.colsCount);
 			scanf("%d", &(newcolumn));
+			fflush(stdin);
 		} while (newrow < rec.rowsCount || newcolumn < rec.colsCount);
 		rec.rowsCount = newrow;
 		rec.colsCount = newcolumn;
 		rec.seatsCount = seatcount;
 	} else {
 		printf("座位行数:");
-		fflush(stdin);
 		scanf("%d", &rec.rowsCount);
-		printf("座位列数:");
 		fflush(stdin);
+		printf("座位列数:");
 		scanf("%d", &rec.colsCount);
+		fflush(stdin);
 		rec.seatsCount = 0;
 	}
-
 	printf("-------------------------------------------------------\n");
-
 	if (Studio_Srv_Modify(&rec)) {
 		rtn = 1;
 		printf(
 				"演出厅数据更新成功!\n键入[Enter]返回!\n");
 	} else
 		printf("演出厅数据更新失败!\n键入[Enter]返回!\n");
-
 	getchar();
 	return rtn;
 }
 
 int Studio_UI_Delete(int id) {
-
 	int rtn = 0;
-
 	if (Studio_Srv_DeleteByID(id)) {
 		//在删除放映厅时，同时根据放映厅id删除座位文件中的座位
 		if (Seat_Srv_DeleteAllByRoomID(id))
@@ -225,7 +212,6 @@ int Studio_UI_Delete(int id) {
 	} else {
 		printf("演出厅删除失败!\n键入[Enter]返回!\n");
 	}
-
 	getchar();
 	return rtn;
 }

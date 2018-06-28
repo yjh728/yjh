@@ -23,8 +23,10 @@ int SysLogin(){
 		fflush(stdin);
 		printf("密码：");
 		password_input(pwd);
+		fflush(stdin);
 		if (Account_Srv_Verify(name, pwd))
 			return 1;
+        printf("\n账号或密码输入错误，你还有%d次机会!\n", 2-i);
 	}
 	return 0;
 }
@@ -52,7 +54,6 @@ void Account_UI_MgtEntry(int flag){
 		printf("--------------------------------------------------------\n");
 		printf("\n[M]修改密码|[R]返回\n");
 		printf("请输入功能选项:");
-		fflush(stdin);
 		scanf("%c", &choice);
 		fflush(stdin);
 		if(choice=='M' || choice=='m'){
@@ -80,8 +81,8 @@ void Account_UI_MgtEntry(int flag){
         printf("*********************************************************\n");
         printf("\n[A]新增|[M]修改|[D]删除|[Q]查询|[P]上一页|[N]下一页|[R]返回\n");
         printf("请输入功能选项:");
-        fflush(stdin);
         scanf("%c",&choice);
+        fflush(stdin);
         switch(choice){
             case 'A':
             case 'a':
@@ -93,8 +94,8 @@ void Account_UI_MgtEntry(int flag){
             case 'M':
             case 'm':
                 printf("请输入要修改密码的用户名:");
-                fflush(stdin);
                 gets(name);
+                fflush(stdin);
                 if(Account_UI_Modify(head,name)){
                     paging.totalRecords = Account_Srv_FetchAll(head);
                     List_Paging(head, paging, account_node_t);
@@ -103,8 +104,8 @@ void Account_UI_MgtEntry(int flag){
             case 'D':
             case 'd':
                 printf("请输入要删除的用户名:");
-                fflush(stdin);
                 gets(name);
+                fflush(stdin);
                 if(Account_UI_Delete(head,name)){
     				paging.totalRecords = Account_Srv_FetchAll(head);
     				List_Paging(head, paging, account_node_t);
@@ -113,8 +114,8 @@ void Account_UI_MgtEntry(int flag){
             case 'Q':
             case 'q':
                 printf("请输入要查询的用户名:");
-                fflush(stdin);
                 gets(name);
+                fflush(stdin);
                 Account_UI_Query(head,name);
                 break;
             case 'P':
@@ -139,11 +140,11 @@ void Account_UI_MgtEntry(int flag){
 //添加新系统用户界面
 int  Account_UI_Add(account_list_t list){
     system("cls");
-    printf("请输入你要添加的账户名：");
 	account_node_t *p;
-	fflush(stdin);
 	char name[30];
+	printf("请输入你要添加的账户名：");
 	scanf("%s", name);
+	fflush(stdin);
 	p = Account_Srv_FindByUsrName(list, name);
 	if (p != NULL) {
         printf("该用户已存在!");
@@ -156,11 +157,11 @@ int  Account_UI_Add(account_list_t list){
 	printf("1.售票员\n");
 	printf("2.经理\n");
 	printf("9.系统管理员\n");
-	fflush(stdin);
 	scanf("%d", &p->data.type);
-	printf("请输入用户名密码:");
 	fflush(stdin);
+	printf("请输入用户名密码:");
 	password_input(p->data.password);
+	fflush(stdin);
 	Account_Srv_Add(&p->data);
 	Account_Perst_SelectAll(list);
 	return 0;
@@ -175,8 +176,8 @@ int Account_UI_Modify(account_list_t list,char usrName[]){
         return 0;
 	}
 	printf("请输入新密码:");
-	fflush(stdin);
 	password_input(p->data.password);
+	fflush(stdin);
 	if (Account_Srv_Modify(&p->data)) {
         printf("修改成功!请键入任意值返回上一层!");
         Account_Perst_SelectAll(list);
@@ -190,13 +191,12 @@ int Account_UI_Modify(account_list_t list,char usrName[]){
 
 //删除系统用户界面
 int Account_UI_Delete(account_list_t list,char usrName[]){
-	account_t *buf;
 	account_node_t *p = Account_Srv_FindByUsrName(list, usrName);
 	if (p == NULL) {
         printf("该用户不存在!");
         return 0;
 	}
-    if (Account_Srv_DeleteByID(buf->id)) {
+    if (Account_Srv_DeleteByID(p->data.id)) {
         printf("已删除!请键入任意键返回上一层!");
         getchar();
     } else {
@@ -215,6 +215,7 @@ int Account_UI_Query(account_list_t list,char usrName[]){
         printf("该用户不存在!");
         return 0;
 	}
+	printf("ID    职位    用户名           密码\n");
 	printf("%d\t%d\t%s\t%s\n", p->data.id, p->data.type, p->data.username ,p->data.password);
 	printf("请键入任意键返回上一层!");
 	getchar();

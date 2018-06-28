@@ -20,10 +20,10 @@ int Ticket_Perst_Insert(int schedule_id, seat_list_t list){
 		printf("不能打开文件%s!\n", TICKET_DATA_FILE);
 		return 0;
 	}
-	schedule_t *sch;
-	Schedule_Perst_SelectByID(schedule_id, sch);
-	play_t *buf;
-	Play_Perst_SelectByID(sch->play_id, buf);
+	schedule_t sch;
+	Schedule_Perst_SelectByID(schedule_id, &sch);
+	play_t buf;
+	Play_Perst_SelectByID(sch.play_id, &buf);
 	int count = 0;
 	seat_node_t *pos = list->next;
 	while (pos != list) {
@@ -36,13 +36,14 @@ int Ticket_Perst_Insert(int schedule_id, seat_list_t list){
 	pos = list->next;
 	while (pos != list) {
         p.id = key++;
-        p.price = buf->price;
+        p.price = buf.price;
         p.schedule_id = schedule_id;
         p.seat_id = pos->data.id;
         p.status = 0;
         rtn += fwrite(&p, sizeof(ticket_t), 1, fp);
         pos = pos->next;
 	}
+	fclose(fp);
 	return rtn;
 }
 
@@ -84,18 +85,17 @@ int Ticket_Perst_SelByID(int id, ticket_t *buf){
 	int found = 0;
 	FILE *fp = fopen(TICKET_DATA_FILE, "rb");
 	if (NULL == fp) {
-		printf("Cannot open file %s!\n", TICKET_DATA_FILE);
+		printf("不能打开文件%s!\n", TICKET_DATA_FILE);
 		return found;
 	}
 	ticket_t data;
 	while (!feof(fp)) {
 		if (fread(&data, sizeof(ticket_t), 1, fp)) {
 			if (id == data.id) {
-				buf = &data;
+				*buf = data;
 				found = 1;
 				break;
 			}
-			;
 		}
 	}
 	fclose(fp);

@@ -9,9 +9,9 @@ static const int TICKET_PAGE_SIZE=8;
 
 void Ticket_UI_MgtEntry(int schedule_id);
 
-void Ticket_UI_Query(void);
+void Ticket_UI_Query(int schedule_id);
 
-int Ticket_UI_ShowTicket (int ticket_id);
+void Ticket_UI_ShowTicket(int schedule_id, int flag);
 
 
 

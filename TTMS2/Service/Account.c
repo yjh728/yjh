@@ -19,8 +19,8 @@ void Account_Srv_InitSys(){
 		return ;
 	account_t data_admin;
 	data_admin.type = 9;
-	strcpy(data_admin.username, "yjh728");
-	strcpy(data_admin.password, "yjh990728.");
+	strcpy(data_admin.username, "admin");
+	strcpy(data_admin.password, "admin");
 	Account_Srv_Add(&data_admin);
 }
 
@@ -29,8 +29,10 @@ int Account_Srv_Verify(char usrName[], char pwd[]){
 	account_t usr;
 	if (Account_Perst_SelByName(usrName, &usr) == 0)
 		return 0;
-	gl_CurUser = usr;
-	return 1;
+    if (strcmp(usr.password, pwd))
+        return 0;
+    gl_CurUser = usr;
+    return 1;
 }
 
 

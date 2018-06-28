@@ -7,18 +7,19 @@
 #include <string.h>
 #include "EntityKey_Persist.h"
 
-
 static const char SALE_DATA_FILE[] = "Sale.dat";
 static const char SALE_DATA_TEMP_FILE[] = "SaleTmp.dat";
 static const char SALE_KEY_NAME[] = "Sale";
-static const char TICKET_DATA_FILE[] = "Ticket";
+static const char TICKET_DATA_FILE[] = "Ticket.dat";
 //存储新订单
 int Sale_Perst_Insert (sale_t *data){
-	data->id = EntKey_Perst_GetNewKeys(SALE_KEY_NAME, 1);
 	FILE *fp = fopen(SALE_DATA_FILE, "ab");
 	if (!fp) {
 		printf("打开文件%s失败!", SALE_DATA_FILE);
+		getchar();
+		return 0;
 	}
+	data->id = EntKey_Perst_GetNewKeys(SALE_KEY_NAME, 1);
 	int rtn = fwrite(data, sizeof(sale_t), 1, fp);
 	fclose(fp);
 	return rtn;
@@ -51,10 +52,6 @@ int Ticket_Srv_SelBySchID(int id, ticket_list_t list){
 	ticket_node_t *newNode;
 	ticket_t data;
 	int recCount = 0;
-	assert(NULL!=list);
-	//文件不存在
-	if (access(TICKET_DATA_FILE, 0))
-		return 0;
 	List_Free(list, ticket_node_t);
 	FILE *fp = fopen(TICKET_DATA_FILE, "rb");
 	if (NULL == fp) { //文件不存在
@@ -76,7 +73,6 @@ int Ticket_Srv_SelBySchID(int id, ticket_list_t list){
 	fclose(fp);
 	return recCount;
 }
-
 //根据票ID载入销售记录
 int Sale_Perst_SelByTicketID (int ticket_id, sale_t *sale){
 	assert(NULL!=sale);
@@ -84,13 +80,12 @@ int Sale_Perst_SelByTicketID (int ticket_id, sale_t *sale){
 	if (NULL == fp) {
 		return 0;
 	}
-	sale_t data;
+	sale_t buf;
 	int found = 0;
-
 	while (!feof(fp)) {
-		if (fread(&data, sizeof(sale_t), 1, fp)) {
-			if (ticket_id == data.id) {
-				sale = &data;
+		if (fread(&buf, sizeof(sale_t), 1, fp)) {
+			if (ticket_id == buf.ticket_id) {
+				*sale = buf;
 				found = 1;
 				break;
 			}
@@ -120,6 +115,7 @@ int Sale_Perst_SelByID (sale_list_t list, int usrID){
                     break;
                 }
                 newNode->data = data;
+                List_AddTail(list, newNode);
                 recCount++;
             }
         }

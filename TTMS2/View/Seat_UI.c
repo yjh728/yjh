@@ -173,13 +173,9 @@ int Seat_UI_Add(seat_list_t list, int roomID, int row, int column) {  //输入一个
 			printf("该座位已存在 \n");//The seat is already exist!
 			continue;
 		}
-
-		rec.id = EntKey_Perst_GetNewKeys("Seat", 1);		//设置座位id
 		rec.roomID = roomID;
 		rec.status = SEAT_GOOD;    //插入的新座位的状态默认为好座位
-		printf(
-				"==================================================================\n");
-
+		printf("==================================================================\n");
 		if (Seat_Srv_Add(&rec)) {
 			newRecCount++;
 			printf("新座位添加成功\n");//The new seat added successfully!
@@ -229,8 +225,7 @@ int Seat_UI_Modify(seat_list_t list, int row, int column) {
 			printf("座位情况 [%d,%d]: [%c]:", newrow, newcolumn,//State of Seat
 					Seat_UI_Status2Char(p->data.status));
 			p->data.status = Seat_UI_Char2Status(getchar());
-			printf(
-					"-------------------------------------------------------------------\n");
+			printf("-------------------------------------------------------------------\n");
 			if (Seat_Srv_Modify(&(p->data))) {
 				rtn = 1;
 				printf("该座位更新成功!\n");//The seat data updated successfully
@@ -252,15 +247,11 @@ int Seat_UI_Delete(seat_list_t list, int row, int column) {
 	int newrow, newcolumn;
 	seat_node_t *p;
 	char choice;
-
 	do {
 		system("cls");
-		printf(
-				"\n==================================================================\n");
-		printf(
-				"**************************  删除座位  ************************\n");//Delete  Seat
-		printf(
-				"------------------------------------------------------------------\n");
+		printf("\n==================================================================\n");
+		printf("**************************  删除座位  ************************\n");//Delete  Seat
+		printf("------------------------------------------------------------------\n");
 		do {
 			printf("排数不应超出 %d 列数不应超出 %d!\n",//Row shouldn't great than %d and Column shouldn't great than %d!\n
 					row, column);
@@ -274,11 +265,9 @@ int Seat_UI_Delete(seat_list_t list, int row, int column) {
 
 		p = Seat_Srv_FindByRowCol(list, newrow, newcolumn);
 		if (p) {
-			printf(
-					"==================================================================\n");
+			printf("==================================================================\n");
 			if (Seat_Srv_DeleteByID(p->data.id)) {
 				printf("该座位删除成功!\n");//The seat deleted successfully
-
 				delSeatCount++;
 				List_FreeNode(p);	//释放结点座位结点p
 			}
@@ -286,12 +275,10 @@ int Seat_UI_Delete(seat_list_t list, int row, int column) {
 			printf("该座位不存在!\n");
 
 		}
-
-		printf(
-				"------------------------------------------------------------------\n");
+		printf("------------------------------------------------------------------\n");
 		printf("[D]删除更多, [R]返回:");
 		scanf("%c", &choice);
-            fflush(stdin);
+        fflush(stdin);
 	} while ('d' == choice || 'D' == choice);
 	return delSeatCount;
 }

@@ -14,7 +14,7 @@ int Ticket_Srv_Modify (const ticket_t *data){
 
 //根据演出计划ID获取票的数据
 int Ticket_Srv_FetchBySchID(ticket_list_t list, int schedule_id){
-	return Ticket_Srv_SelBySchID(list, schedule_id);
+	return Ticket_Srv_SelBySchID(schedule_id, list);
 }
 
 

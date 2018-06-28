@@ -11,7 +11,7 @@
 
 #include "../View/Studio_UI.h"
 void Main_Menu(account_t usr) {
-	int choice;
+	char choice;
 	switch (usr.type) {
     case 0:
     case 9:
@@ -25,58 +25,50 @@ void Main_Menu(account_t usr) {
             printf("                          0.退出系统\n");
             printf("\n==================================================================\n");
             printf("请输入你的选择:");
+            scanf(" %c", &choice);
             fflush(stdin);
-            scanf("%d", &choice);
             switch (choice) {
-            case 1:
+            case '1':
                 Account_UI_MgtEntry(1);
                 break;
-            case 2:
+            case '2':
                 Account_UI_MgtEntry(0);
                 break;
-            case 3:
+            case '3':
                 Studio_UI_MgtEntry();
                 break;
             }
-        } while (choice != 0);
+        } while (choice != '0');
         break;
     case 1:
         do {
             system("cls");
             printf("\n==================================================================\n");
             printf("*************************** 售票员界面 ***************************\n");
-            printf("                            1.售票\n");
+            printf("                            1.管理票(售票/退票)\n");
             printf("                            2.查看演出\n");
-            printf("                            3.查看演出票\n");
-            printf("                            4.统计销售额\n");
-            printf("                            5.维护个人资料\n");
-            printf("                            6.退票\n");
+            printf("                            3.统计销售额\n");
+            printf("                            4.维护个人资料\n");
             printf("                            0.退出\n");
             printf("\n==================================================================\n");
             printf("请输入你的选择:");
+            scanf(" %c", &choice);
             fflush(stdin);
-            scanf("%d", &choice);
             switch (choice) {
-                case 1:
+                case '1':
                     Sale_UI_MgtEntry();
                     break;
-                case 2:
-                    Schedule_UI_ListAll();
+                case '2':
+                    Schedule_UI_Show();
                     break;
-                case 3:
-                    Ticket_UI_Query();
+                case '3':
+                    StaSales_UI_MgtEntry();
                     break;
-                case 4:
-                    Sale_UI_MgtEntry();
-                    break;
-                case 5:
+                case '4':
                      Account_UI_MgtEntry(1);
                     break;
-                case 6:
-                    Sale_UI_ReturnTicket();
-                    break;
             }
-        } while (choice != 0);
+        } while (choice != '0');
         break;
     case 2:
         do {
@@ -85,36 +77,32 @@ void Main_Menu(account_t usr) {
             printf("**************************** 经理界面 ****************************\n");
             printf("                            1.管理剧目\n");
             printf("                            2.查看演出\n");
-            printf("                            3.查看演出票\n");
-            printf("                            4.统计销售额\n");
-            printf("                            5.维护个人资料\n");
-            printf("                            6.统计票房\n");
+            printf("                            3.统计销售额\n");
+            printf("                            4.维护个人资料\n");
+            printf("                            5.统计票房\n");
             printf("                            0.退出\n");
             printf("\n==================================================================\n");
             printf("请输入你的选择:");
+            scanf(" %c", &choice);
             fflush(stdin);
-            scanf("%d", &choice);
             switch (choice) {
-                case 1:
+                case '1':
                     Play_UI_MgtEntry();
                     break;
-                case 2:
-                    Schedule_UI_ListAll();
+                case '2':
+                    Schedule_UI_Show();
                     break;
-                case 3:
-                    Ticket_UI_Query();
-                    break;
-                case 4:
+                case '3':
                     StaSales_UI_MgtEntry();
                     break;
-                case 5:
-                     Account_UI_MgtEntry(1);
+                case '4':
+                    Account_UI_MgtEntry(1);
                     break;
-                case 6:
+                case '5':
                     SalesAnalysis_UI_MgtEntry();
                     break;
             }
-        } while (choice != 0);
+        } while (choice != '0');
         break;
 	}
 }

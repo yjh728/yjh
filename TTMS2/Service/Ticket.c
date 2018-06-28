@@ -12,8 +12,8 @@
 
 int Ticket_Srv_GenBatch(int schedule_id, int studio_id){
 	seat_list_t seat_head;
-	schedule_t *sch;
-	play_t *play;
+	//schedule_t *sch;
+	//play_t *play;
 	int count=0;
 	int recCount = 0;
 	List_Init(seat_head, seat_node_t);
@@ -30,7 +30,6 @@ int Ticket_Srv_GenBatch(int schedule_id, int studio_id){
 int Ticket_Srv_DeleteBatch(int schedule_id) {
 	return Ticket_Perst_Rem(schedule_id);
 }
-
 
 int Ticket_Srv_FetchByID (int id, ticket_t *buf){
 	return Ticket_Perst_SelByID(id, buf);
