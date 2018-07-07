@@ -1,6 +1,7 @@
 #include "head.h"
 
 extern int changdu ;
+
 void entering1(Linklist_student phead) {        //学生信息导出
     Linklist_student p = phead->next ;
     FILE * fp = fopen("student_message.txt", "w+") ;
@@ -12,6 +13,7 @@ void entering1(Linklist_student phead) {        //学生信息导出
         }}
     fclose(fp) ;
 }
+
 Linklist_student export1 () {                   //学生信息导入
     changdu = 0 ;
     Linklist_student phead, p, q ;
@@ -36,6 +38,7 @@ Linklist_student export1 () {                   //学生信息导入
     fclose(fp) ;
     return phead ;
 }
+
 void entering2(Linklist_aap phead, int n) {       //账号信息导出
     Linklist_aap p = phead->next ;
     FILE * fp ;
@@ -49,6 +52,7 @@ void entering2(Linklist_aap phead, int n) {       //账号信息导出
     }
     fclose(fp) ;
 }
+
 Linklist_aap export2 (int n) {                     //账号信息导入
     Linklist_aap phead, p, q ;
     phead = (Linklist_aap) malloc (sizeof(Node_aap)) ;

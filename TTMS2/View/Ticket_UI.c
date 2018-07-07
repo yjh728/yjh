@@ -1,11 +1,9 @@
 #include "Ticket_UI.h"
-
 #include "../Common/List.h"
 #include "../Service/Ticket.h"
 #include "../Service/Schedule.h"
 #include "../Service/Play.h"
 #include "../Service/Studio.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -54,10 +52,8 @@ void Ticket_UI_Query(int schedule_id) {
 	List_Init(head, ticket_node_t);
 	paging.offset = 0;
 	paging.pageSize = TICKET_PAGE_SIZE;
-	//载入数据
 	paging.totalRecords = Ticket_Srv_FetchBySchID(head, schedule_id);
 	Paging_Locate_FirstPage(head, paging);
-	//需要增加查找座位信息
 	Schedule_Srv_FetchByID(schedule_id,&schedule_rec);
 	Play_Srv_FetchByID(schedule_rec.play_id,&play_rec);
 	do {
@@ -66,7 +62,6 @@ void Ticket_UI_Query(int schedule_id) {
 		printf("****************  票列表  ****************\n");
 		printf("编号\t剧名\t\t座位行\t座位列\t 日期\t\t时间\t价格\t状态\n");
 		printf("-------------------------------------------------------\n");
-		//显示数据
 		for (i = 0, pos = (ticket_node_t *) (paging.curPos);
 				pos != head && i < paging.pageSize; i++) {
             seat_t seat;
@@ -101,7 +96,6 @@ void Ticket_UI_Query(int schedule_id) {
 			break;
 		}
 	} while (choice != 'r' && choice != 'R');
-	//释放链表空间
 	List_Destroy(head, ticket_node_t);
 }
 
@@ -138,8 +132,7 @@ void Ticket_UI_ShowTicket(int schedule_id, int flag) {
                     pos->data.status == 1 ? "已售" : "待售");
             pos = pos->next;
         }
-        printf(
-                "== 总计记录:%d条 =========================== 页 %d/%d ==\n",
+        printf("== 总计记录:%d条 =========================== 页 %d/%d ==\n",
                 paging.totalRecords, Pageing_CurPage(paging),
                 Pageing_TotalPages(paging));
         if (flag == 1)
@@ -163,6 +156,5 @@ void Ticket_UI_ShowTicket(int schedule_id, int flag) {
             break;
         }
     } while(choice != 's' && choice != 'S');
-	//释放链表空间
 	List_Destroy(head, ticket_node_t);
 }

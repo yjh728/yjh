@@ -17,7 +17,7 @@ static const char TICKET_KEY_NAME[]="Ticket";
 int Ticket_Perst_Insert(int schedule_id, seat_list_t list){
 	FILE *fp = fopen(TICKET_DATA_FILE, "ab");
 	if (NULL == fp) {
-		printf("ä¸èƒ½æ‰“å¼€æ–‡ä»¶%s!\n", TICKET_DATA_FILE);
+		printf("²»ÄÜ´ò¿ªÎÄ¼ş%s!\n", TICKET_DATA_FILE);
 		return 0;
 	}
 	schedule_t sch;
@@ -52,11 +52,11 @@ int Ticket_Perst_Rem(int schedule_id){
 	fpSour = fopen(TICKET_DATA_FILE, "rb");
 	fpTarg = fopen(TICKET_DATA_TEMP_FILE, "wb");
 	if (NULL == fpTarg) {
-		printf("ä¸èƒ½æ‰“å¼€æ–‡ä»¶%s!\n", TICKET_DATA_TEMP_FILE);
+		printf("²»ÄÜ´ò¿ªÎÄ¼ş%s!\n", TICKET_DATA_TEMP_FILE);
 		return 0;
 	}
 	if (NULL == fpSour) {
-		printf("ä¸èƒ½æ‰“å¼€æ–‡ä»¶%s!\n", TICKET_DATA_FILE);
+		printf("²»ÄÜ´ò¿ªÎÄ¼ş%s!\n", TICKET_DATA_FILE);
 		return 0;
 	}
 	ticket_t buf;
@@ -74,7 +74,7 @@ int Ticket_Perst_Rem(int schedule_id){
 	fclose(fpSour);
 	remove(TICKET_DATA_FILE);
 	if (rename(TICKET_DATA_TEMP_FILE, TICKET_DATA_FILE)) {
-		printf("ä¸èƒ½é‡å‘½å%s\n", TICKET_DATA_TEMP_FILE);
+		printf("²»ÄÜÖØÃüÃû%s\n", TICKET_DATA_TEMP_FILE);
 		return 0;
 	}
 	return found;
@@ -85,7 +85,7 @@ int Ticket_Perst_SelByID(int id, ticket_t *buf){
 	int found = 0;
 	FILE *fp = fopen(TICKET_DATA_FILE, "rb");
 	if (NULL == fp) {
-		printf("ä¸èƒ½æ‰“å¼€æ–‡ä»¶%s!\n", TICKET_DATA_FILE);
+		printf("²»ÄÜ´ò¿ªÎÄ¼ş%s!\n", TICKET_DATA_FILE);
 		return found;
 	}
 	ticket_t data;

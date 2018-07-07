@@ -2,7 +2,7 @@
 
 extern Linklist_aap aap_s ;
 extern Linklist_aap aap_t ;
-void password_input (char * p) {
+void password_input (char * p) {		//密码输入
     int i = 0 ;
     while (i<19) {
         char ch ;
@@ -25,13 +25,13 @@ void password_input (char * p) {
     fflush(stdin) ;
     p[19] = '\0' ;
 }
-void register1 () {
+void register1 () {			//账号注册
     system("cls") ;
     AAP * aap1 = (AAP *) malloc (sizeof(AAP)) ;
     AAP * aap2 = (AAP *) malloc (sizeof(AAP)) ;
     FILE * fp = fopen("student_cAp.txt", "at+") ;
     if (fp==NULL) {
-        //printf("\n\t打开文件失败, 失败原因:%s\n", stderror(errno)) ;
+        printf("\n\t打开文件失败\n") ;
         puts("\n\t请键入任意键退出!") ;
         getch() ;
         exit(1) ;
@@ -65,7 +65,7 @@ void register1 () {
     free(aap2) ;
     student_interface() ;
 }
-void login (int n) {
+void login (int n) {		//登录验证
     system("cls") ;
     AAP * aap1 = (AAP *) malloc(sizeof(AAP)) ;
     AAP * aap2 = (AAP *) malloc(sizeof(AAP)) ;
@@ -73,7 +73,7 @@ void login (int n) {
     if (n==2) {
         fp = fopen("teacher_cAp.txt", "rt") ;
         if (fp==NULL) {
-            //printf("\n\t打开文件失败, 失败原因:%s\n", stderror(errno)) ;
+            printf("\n\t打开文件失败\n") ;
             puts("\n\n\n\t请键入任意键退出!") ;
             getch() ;
             exit(1) ;
@@ -83,7 +83,7 @@ void login (int n) {
     else {
         fp = fopen("student_cAp.txt", "rt") ;
         if (fp==NULL) {
-            //printf("\n\t打开文件失败, 失败原因:%s\n", stderror(errno)) ;
+            printf("\n\t打开文件失败\n") ;
             puts("\n\n\n\t请键入任意键退出!") ;
             getch() ;
             exit(1) ;

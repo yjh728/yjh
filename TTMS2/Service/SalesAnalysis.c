@@ -1,9 +1,3 @@
-/*
- * salesanalysis.c
- *
- *  Created on: 2015年6月12日
- *      Author: Administrator
- */
 #include <string.h>
 #include <stdio.h>
 #include "SalesAnalysis.h"
@@ -13,7 +7,6 @@
 #include "Schedule.h"
 #include "../Common/List.h"
 
-//获取剧目票房
 int SalesAnalysis_Srv_StaticSale(salesanalysis_list_t list) {
 	if (list == NULL) {
         printf("该链表为空!!!\n");
@@ -47,7 +40,6 @@ int SalesAnalysis_Srv_StaticSale(salesanalysis_list_t list) {
 	return rtn;
 }
 
-//剧目票房排行
 void SalesAnalysis_Srv_SortBySale(salesanalysis_list_t list){
     if (List_IsEmpty(list))
         return;
@@ -68,7 +60,6 @@ void SalesAnalysis_Srv_SortBySale(salesanalysis_list_t list){
     }
 }
 
-//根据演出计划ID获取票房
 int Ticket_Srv_StatRevBySchID(int schedule_id, int *soldCount){
 	int value = 0;
 	ticket_list_t list;
@@ -90,7 +81,6 @@ int Ticket_Srv_StatRevBySchID(int schedule_id, int *soldCount){
 	return value;
 }
 
-//根据剧目ID获取票房
 int Ticket_Srv_StatRevByPlay(int play_id, int *soldCount) {
     int value = 0;
     int sold = 0;
@@ -106,12 +96,11 @@ int Ticket_Srv_StatRevByPlay(int play_id, int *soldCount) {
     List_Destroy(list, schedule_node_t);
     return value;
 }
-//根据票ID获取销售记录
+
 int Sale_Srv_FetchByTicketID(int ticket_id, sale_t *sale){
 	return Sale_Perst_SelByTicketID(ticket_id, sale);
 }
 
-//根据ID获取销售额统计
 int SalesAnalysis_Srv_CompSaleVal(int usrID, ttms_date_t stData, ttms_date_t endData) {
     int amount = 0;
     sale_list_t saleList;

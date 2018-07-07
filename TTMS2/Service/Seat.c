@@ -1,16 +1,10 @@
-/*
- *  Seat.c
- *
- *  Created on: 2015年6月12日
- *  Author: lc
- */
 #include <stdlib.h>
 #include "../Common/List.h"
 #include "Seat.h"
 #include "../Persistence/Seat_Persist.h"
 #include <stdio.h>
 
-int Seat_Srv_Add(seat_t *data) {	////新方案将data前面的const去掉
+int Seat_Srv_Add(seat_t *data) {
     return Seat_Perst_Insert(data);
 }
 
@@ -34,14 +28,12 @@ int Seat_Srv_DeleteAllByRoomID(int roomID) {
     return Seat_Perst_DeleteAllByRoomID(roomID);
 }
 
-//根据演出厅ID载入座位
 int Seat_Srv_FetchByRoomID(seat_list_t list, int roomID) {
 	int SeatCount = Seat_Perst_SelectByRoomID(list, roomID);
 	Seat_Srv_SortSeatList(list);
 	return SeatCount;
 }
 
-/*根据放映厅ID提取有效的座位*/
 int Seat_Srv_FetchValidByRoomID(seat_list_t list, int roomID) {
 	int SeatCount = Seat_Perst_SelectByRoomID(list, roomID);
 	seat_node_t *p;
@@ -55,12 +47,10 @@ int Seat_Srv_FetchValidByRoomID(seat_list_t list, int roomID) {
 	return SeatCount;
 }
 
-//根据行、列数初始化演出厅的座位
 int Seat_Srv_RoomInit(seat_list_t list, int roomID, int rowsCount,
 		int colsCount) {
 	int i, j;
 	seat_node_t *p;
-	//先按行列数生成默认座位，形成链表
 	for (i = 1; i <= rowsCount; i++){
 		for (j = 1; j <= colsCount; j++) {
 			p = (seat_node_t *) malloc(sizeof(seat_node_t));
@@ -74,7 +64,6 @@ int Seat_Srv_RoomInit(seat_list_t list, int roomID, int rowsCount,
 	return Seat_Perst_InsertBatch(list);
 }
 
-//对座位链表list进行按座位行号和列号排序
 void Seat_Srv_SortSeatList(seat_list_t list) {
 	assert(list != NULL);
 	if (List_IsEmpty(list))
@@ -90,7 +79,6 @@ void Seat_Srv_SortSeatList(seat_list_t list) {
 	}
 }
 
-//将结点node加入到已排序链表list中
 void Seat_Srv_AddToSoftedList(seat_list_t list, seat_node_t *node) {
 	seat_node_t *p;
 	if (List_IsEmpty(list) != NULL) {

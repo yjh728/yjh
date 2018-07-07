@@ -17,4 +17,4 @@ int Schedule_Perst_SelectAll(schedule_list_t list);
 
 int Schedule_Perst_SelectByPlay(schedule_list_t list, int play_id);
 
-#endif // SCHEDPERSIST_H_
+#endif

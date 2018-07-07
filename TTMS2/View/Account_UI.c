@@ -1,18 +1,11 @@
-/*/*
- * Account_UI.c
- *
- *  Created on: 2015年4月24日
- *      Author: Administrator
- */
 #include "../View/Account_UI.h"
-
 #include "../Common/List.h"
 #include "../Service/Account.h"
 #include <stdio.h>
 #include "../Common/common.h"
 static const char ACCOUNT_KEY_NAME[] = "Account";
 extern account_t gl_CurUser;
-//系统登录
+
 int SysLogin(){
 	Account_Srv_InitSys();
 	for(int i = 0; i < 3; i++) {
@@ -31,7 +24,6 @@ int SysLogin(){
 	return 0;
 }
 
-//系统用户管理界面
 void Account_UI_MgtEntry(int flag){
     account_list_t head;
     account_list_t pos;
@@ -74,7 +66,6 @@ void Account_UI_MgtEntry(int flag){
 			pos = pos->next;
 
         }
-		//printf("--------------------------------------------------------\n");
 		printf("\n------- 全部记录:%d ----------------------- 页数 %d/%d ----\n",
 				paging.totalRecords, Pageing_CurPage(paging),
 				Pageing_TotalPages(paging));
@@ -137,7 +128,6 @@ void Account_UI_MgtEntry(int flag){
     List_Destroy(head,account_node_t);
 }
 
-//添加新系统用户界面
 int  Account_UI_Add(account_list_t list){
     system("cls");
 	account_node_t *p;
@@ -167,7 +157,6 @@ int  Account_UI_Add(account_list_t list){
 	return 0;
 }
 
-//修改系统用户界面
 int Account_UI_Modify(account_list_t list,char usrName[]){
 	account_node_t *p;
 	p = Account_Srv_FindByUsrName(list, usrName);
@@ -189,7 +178,6 @@ int Account_UI_Modify(account_list_t list,char usrName[]){
 	return 0;
 }
 
-//删除系统用户界面
 int Account_UI_Delete(account_list_t list,char usrName[]){
 	account_node_t *p = Account_Srv_FindByUsrName(list, usrName);
 	if (p == NULL) {
@@ -208,7 +196,6 @@ int Account_UI_Delete(account_list_t list,char usrName[]){
 	return 0;
 }
 
-//查询系统用户界面
 int Account_UI_Query(account_list_t list,char usrName[]){
 	account_node_t *p = Account_Srv_FindByUsrName(list, usrName);
 	if (p == NULL) {

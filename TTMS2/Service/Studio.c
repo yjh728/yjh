@@ -1,9 +1,3 @@
-/*
- * studio.c
- *
- *  Created on: 2015年6月12日
- *      Author: Administrator
- */
 #include "Studio.h"
 #include "../Persistence/Studio_Persist.h"
 #include <stdlib.h>
@@ -31,7 +25,6 @@ int Studio_Srv_FetchAll(studio_list_t list) {
 	return Studio_Perst_SelectAll(list);
 }
 
-//通过ID在list中查找对应放映厅结点
 studio_node_t *Studio_Srv_FindByID(studio_list_t list, int ID){
 	assert(NULL!=list);
 	studio_node_t *ptr = list->next;

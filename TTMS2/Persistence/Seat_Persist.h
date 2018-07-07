@@ -1,16 +1,9 @@
-/*
- *  Seat_Persist.h
- *
- *  Created on: 2015Äê5ÔÂ23ÈÕ
- *  Author: lc
- */
-
 #ifndef SEATPERSIST_H_
 #define SEATPERSIST_H_
 
 #include "../Service/Seat.h"
 
-int Seat_Perst_Insert(seat_t *data);	
+int Seat_Perst_Insert(seat_t *data);
 
 int Seat_Perst_InsertBatch(seat_list_t list);
 
@@ -28,4 +21,4 @@ int Seat_Perst_SelectAll(seat_list_t list);
 
 int Seat_Perst_SelectByRoomID(seat_list_t list, int roomID);
 
-#endif /* SEATPERSIST_H_ */
+#endif

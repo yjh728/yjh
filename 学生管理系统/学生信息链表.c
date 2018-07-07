@@ -2,7 +2,8 @@
 
 extern Linklist_student head ;
 extern int changdu ;
-Linklist_student chuangjian() {
+
+Linklist_student chuangjian() {				//学生信息链表的创建
     system("cls") ;
     Linklist_student phead, pnew, pend ;
     phead = (Linklist_student) malloc(sizeof(Node_student)) ;
@@ -32,7 +33,8 @@ Linklist_student chuangjian() {
     }
     return phead ;
 }
-void add1 (Linklist_student phead) {
+
+void add1 (Linklist_student phead) {			//添加学生信息
     system("cls") ;
     Linklist_student p = phead, pnew ;
     char xuehao[9] ;
@@ -61,7 +63,8 @@ void add1 (Linklist_student phead) {
     printf("\n\t请键入任意字符退出\n") ;
     getch() ;
 }
-void del1 (Linklist_student phead) {
+
+void del1 (Linklist_student phead) {		//删除学生信息
     system("cls") ;
     Linklist_student q = phead->next, p = phead->next ;
     char xuehao[9] ;
@@ -84,7 +87,8 @@ void del1 (Linklist_student phead) {
     printf("\t请键入任意字符退出\n") ;
     getch() ;
 }
-void change1 (Linklist_student phead) {
+
+void change1 (Linklist_student phead) {		//修改学生信息
     system("cls") ;
     Linklist_student p = phead->next ;
     char xuehao[9] ;
@@ -130,7 +134,8 @@ void change1 (Linklist_student phead) {
     printf("\t请键入任意键退出\n") ;
     getch() ;
 }
-void find1 (const Linklist_student phead) {
+
+void find1 (const Linklist_student phead) {		//查找学生信息
     system("cls") ;
     Linklist_student p = phead->next ;
     char xuehao[9] ;
@@ -153,12 +158,14 @@ void find1 (const Linklist_student phead) {
     printf("\n\t请键入任意键退出\n") ;
     getch() ;
 }
-void swap (Linklist_student a, Linklist_student b) {
+
+void swap (Linklist_student a, Linklist_student b) {		//交换结点数据域
     Item r = a->student ;
     a->student = b->student ;
     b->student = r ;
 }
-void sort () {
+
+void sort () {			//学生信息链表的排序
     system("cls") ;
     puts("\n\n\n\n\n\n\t\t\t\t\t\t    请选择以什么顺序输出学生成绩:") ;
     puts("\t\t\t\t\t\t    ****************************") ;
@@ -205,7 +212,8 @@ void sort () {
             }
     }
 }
-void Performance_analysis (Linklist_student phead) {
+
+void Performance_analysis (Linklist_student phead) {		//学生成绩分析
     system("cls") ;
     Linklist_student p = phead->next ;
     if (p && phead) {
@@ -271,7 +279,8 @@ void Performance_analysis (Linklist_student phead) {
     printf("\t\t请键入任意键返回上一层!") ;
     getch() ;
 }
-void Print1 () {
+
+void Print1 () {			//打印学生信息
     system("cls") ;
     Linklist_student p = head->next ;
     int n = 1 ;

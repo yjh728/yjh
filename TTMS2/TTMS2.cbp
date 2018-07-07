@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TTMS2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/TTMS2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/TTMS2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Common/List.h" />
+		<Unit filename="Common/common.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Common/common.h" />
+		<Unit filename="Persistence/Account_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Account_Persist.h" />
+		<Unit filename="Persistence/EntityKey_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/EntityKey_Persist.h" />
+		<Unit filename="Persistence/Play_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Play_Persist.h" />
+		<Unit filename="Persistence/Sale_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Sale_Persist.h" />
+		<Unit filename="Persistence/Schedule_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Schedule_Persist.h" />
+		<Unit filename="Persistence/Seat_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Seat_Persist.h" />
+		<Unit filename="Persistence/Studio_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Studio_Persist.h" />
+		<Unit filename="Persistence/Ticket_Persist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Persistence/Ticket_Persist.h" />
+		<Unit filename="Service/Account.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Account.h" />
+		<Unit filename="Service/Play.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Play.h" />
+		<Unit filename="Service/Sale.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Sale.h" />
+		<Unit filename="Service/SalesAnalysis.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/SalesAnalysis.h" />
+		<Unit filename="Service/Schedule.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Schedule.h" />
+		<Unit filename="Service/Seat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Seat.h" />
+		<Unit filename="Service/StaSales.h" />
+		<Unit filename="Service/Studio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Studio.h" />
+		<Unit filename="Service/Ticket.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Service/Ticket.h" />
+		<Unit filename="TTMS.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Account_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Account_UI.h" />
+		<Unit filename="View/MaiAccount_UI.h" />
+		<Unit filename="View/Main_Menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Main_Menu.h" />
+		<Unit filename="View/Play_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Play_UI.h" />
+		<Unit filename="View/Sale_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Sale_UI.h" />
+		<Unit filename="View/SalesAnalysis_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/SalesAnalysis_UI.h" />
+		<Unit filename="View/Schedule_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Schedule_UI.h" />
+		<Unit filename="View/Seat_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Seat_UI.h" />
+		<Unit filename="View/StaSales_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/StaSales_UI.h" />
+		<Unit filename="View/Studio_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Studio_UI.h" />
+		<Unit filename="View/Ticket_UI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Ticket_UI.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

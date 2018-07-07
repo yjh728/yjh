@@ -109,12 +109,11 @@ int Schedule_Perst_SelectAll(schedule_list_t list){
 	schedule_t data;
 	int recCount = 0;
 	assert(NULL!=list);
-	//文件不存在
 	if (access(SCHEDULE_DATA_FILE, 0))
 		return 0;
 	List_Free(list, schedule_node_t);
 	FILE *fp = fopen(SCHEDULE_DATA_FILE, "rb");
-	if (NULL == fp) //文件不存在
+	if (NULL == fp)
         return 0;
 	while (!feof(fp)) {
 		if (fread(&data, sizeof(schedule_t), 1, fp)) {

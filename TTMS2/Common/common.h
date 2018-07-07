@@ -1,10 +1,3 @@
-/*
- * common.h
- *
- *  Created on: 2015年4月25日
- *      Author: Administrator
- */
-
 #ifndef COMMON_H_
 #define COMMON_H_
 
@@ -20,24 +13,18 @@ typedef struct {
 	int second;
 }ttms_time_t;
 
-//直接读取键盘输入值
 int ScanKeyboard();
 
-//将字符串str就地转换为大写字符串，并返回字符串头指针
 char *Str2Upper(char *str);
 
-//将字符串str就地转换为小写字符串，并返回字符串头指针
 char *Str2Lower(char *str);
 
-//比较日期dt1, dt2的大小。相等返回0，dt1<dt2返回-1，否则1
 int DateCmp(ttms_date_t dt1, ttms_date_t dt2);
 
-//密码输入
 void password_input (char * p);
-//获取系统当前日期
+
 ttms_date_t DateNow();
 
-//获取系统当前时间
 ttms_time_t TimeNow();
 
-#endif /* COMMON_H_ */
+#endif

@@ -3,7 +3,8 @@
 extern Linklist_student head ;
 extern Linklist_aap aap_t ;
 extern Linklist_aap aap_s ;
-void teacher_power (const char * p) {
+
+void teacher_power (const char * p) {			//教师功能
     system ("cls") ;
     puts ("\n\n\n\n\n\n\t\t\t\t\t     **************************") ;
     puts ("\t\t\t\t\t           1.学生信息录入") ;

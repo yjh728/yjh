@@ -2,7 +2,7 @@
 
 extern Linklist_aap aap_s ;
 extern Linklist_aap aap_t ;
-int change2(Linklist_aap phead, const char * q) {
+int change2(Linklist_aap phead, const char * q) {		//密码修改
     Linklist_aap p = phead->next ;
     while (p && strcmp(p->account_password.account, q) != 0)
         p = p->next ;
@@ -42,7 +42,8 @@ int change2(Linklist_aap phead, const char * q) {
         }
     }
 }
-void del2(Linklist_aap phead) {
+
+void del2(Linklist_aap phead) {			//账号信息删除
     Linklist_aap q = phead->next, p = phead->next ;
     char account[9] ;
     printf("请输入要删除的账号:") ;
@@ -64,7 +65,8 @@ void del2(Linklist_aap phead) {
     printf("请键入任意字符退出\n") ;
     getch() ;
 }
-void add2(Linklist_aap phead) {
+
+void add2(Linklist_aap phead) {			//添加账号信息
     Linklist_aap p = phead, q ;
     while (p->next)
         p = p->next ;
@@ -91,7 +93,8 @@ void add2(Linklist_aap phead) {
         getch() ;
     }
 }
-int Print2 (Linklist_aap phead) {
+
+int Print2 (Linklist_aap phead) {			//打印账号信息
     Linklist_aap p = phead->next ;
     if (phead == NULL || p == NULL) {
         puts("\t\t\t\t\t     无账号信息!") ;
@@ -109,7 +112,8 @@ int Print2 (Linklist_aap phead) {
         return 0 ;
     }
 }
-void Print3(Linklist_aap phead) {
+
+void Print3(Linklist_aap phead) {			//打印要查找的账号信息
     char a[9] ;
     printf("\t\t\t\t\t     请输入要查找的账号:\n") ;
     s_gets(a, 9) ;

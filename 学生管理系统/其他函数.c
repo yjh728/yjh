@@ -3,7 +3,8 @@
 extern Linklist_student head ;
 extern Linklist_aap aap_s ;
 extern Linklist_aap aap_t ;
-void show () {
+
+void show () {				//系统界面
     system("cls") ;
     printf("\n\n\n\n\n\n\t\t\t\t\t   欢迎进入yjh728的学生管理系统\n") ;
     printf("\t\t\t\t\t   ****************************\n") ;
@@ -45,7 +46,8 @@ void show () {
     }
     while (x != 0) ;
 }
-char * s_gets (char * p, int n) {
+
+char * s_gets (char * p, int n) {			//字符串输入及处理
     char * q, * find ;
     q = fgets(p, n, stdin) ;
     if (q) {

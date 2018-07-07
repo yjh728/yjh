@@ -49,8 +49,6 @@ int Play_Perst_Update(play_t *data) {
 }
 
 int Play_Perst_RemByID(int ID) {
-	//将原始文件重命名，然后读取数据重新写入到数据文件中，并将要删除的实体过滤掉。
-	//借助辅助文件，实现记录删除
     int found = 0;
     if (rename(PLAY_DATA_FILE, PLAY_DATA_TEMP_FILE) < 0) {
         printf("不能重命名%s!\n", PLAY_DATA_FILE);
@@ -109,12 +107,11 @@ int Play_Perst_SelectAll(play_list_t list) {
 	play_t data;
 	int recCount = 0;
 	assert(NULL!=list);
-	//文件不存在
 	if (access(PLAY_DATA_FILE, 0))
 		return 0;
 	List_Free(list, play_node_t);
 	FILE *fp = fopen(PLAY_DATA_FILE, "rb+");
-	if (NULL == fp) //文件不存在
+	if (NULL == fp)
 		return 0;
 	while (!feof(fp)) {
 		if (fread(&data, sizeof(play_t), 1, fp)) {

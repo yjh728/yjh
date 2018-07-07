@@ -4,7 +4,7 @@
 extern Linklist_student head ;
 extern Linklist_aap aap_s ;
 extern Linklist_aap aap_t ;
-void student_interface () {
+void student_interface () {		//学生界面
     system ("cls") ;
     printf ("\n\n\n\n\n\n\t\t\t\t\t    欢迎进入学生系统\n") ;
     printf ("\t\t\t\t\t   *******************\n") ;
@@ -46,7 +46,7 @@ void student_interface () {
     }
     while (x != 0) ;
 }
-void student_power(const char * p) {
+void student_power(const char * p) {		//学生功能
     system("cls") ;
     puts("\n\n\n\n\n\n\t\t\t\t\t     请选择你要进行的功能:") ;
     puts("\t\t\t\t\t     ****************************") ;

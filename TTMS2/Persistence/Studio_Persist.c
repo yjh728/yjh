@@ -1,10 +1,3 @@
-/*
- * studioPersist.c
- *
- *  Created on: 2015年4月21日
- *      Author: Administrator
- */
-
 #include "Studio_Persist.h"
 #include "../Service/Studio.h"
 #include "EntityKey_Persist.h"
@@ -16,15 +9,14 @@
 
 static const char STUDIO_DATA_FILE[] = "Studio.dat";
 static const char STUDIO_DATA_TEMP_FILE[] = "StudioTmp.dat";
-//添加对象主键标识名称
 static const char STUDIO_KEY_NAME[] = "Studio";
 
 int Studio_Perst_Insert(studio_t *data) {
 	assert(NULL!=data);
-	long key = EntKey_Perst_GetNewKeys(STUDIO_KEY_NAME, 1); //为新演出厅分配获取
-	if(key<=0)			//主键分配失败，直接返回
+	long key = EntKey_Perst_GetNewKeys(STUDIO_KEY_NAME, 1);
+	if(key<=0)
 		return 0;
-	data->id = key;		//赋给新对象带回到UI层
+	data->id = key;
 	FILE *fp = fopen(STUDIO_DATA_FILE, "ab");
 	int rtn = 0;
 	if (NULL == fp) {
@@ -60,8 +52,6 @@ int Studio_Perst_Update(const studio_t * data) {
 }
 
 int Studio_Perst_DeleteByID(int ID) {
-	//将原始文件重命名，然后读取数据重新写入到数据文件中，并将要删除的实体过滤掉。
-	//对原始数据文件重命名
 	if(rename(STUDIO_DATA_FILE, STUDIO_DATA_TEMP_FILE)<0){
 		printf("不能重命名文件%s!\n", STUDIO_DATA_FILE);
 		return 0;
@@ -90,7 +80,6 @@ int Studio_Perst_DeleteByID(int ID) {
 	}
 	fclose(fpTarg);
 	fclose(fpSour);
-	//删除临时文件
 	remove(STUDIO_DATA_TEMP_FILE);
 	return found;
 }
@@ -123,7 +112,7 @@ int Studio_Perst_SelectAll(studio_list_t list) {
 	assert(NULL!=list);
 	List_Free(list, studio_node_t);
 	FILE *fp = fopen(STUDIO_DATA_FILE, "rb");
-	if (NULL == fp) { //文件不存在
+	if (NULL == fp) {
 		return 0;
 	}
 	while (!feof(fp)) {

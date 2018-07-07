@@ -6,7 +6,7 @@
 #include "../Service/SalesAnalysis.h"
 #include <stdio.h>
 extern account_t gl_CurUser;
-//统计销售额界面
+
 void StaSales_UI_MgtEntry (){
     if (gl_CurUser.type == USR_CLERK)
         StaSales_UI_Self();
@@ -16,7 +16,6 @@ void StaSales_UI_MgtEntry (){
         printf("抱歉,该账号没有权限!");
 }
 
-//统计个人销售额界面
 void StaSales_UI_Self(){
     int id = gl_CurUser.id;
     ttms_date_t p, curdate, startdata, enddate;
@@ -47,7 +46,6 @@ void StaSales_UI_Self(){
     getchar();
 }
 
-//统计售票员销售额界面
 void StaSales_UI_Clerk(){
     int id;
     ttms_date_t startdata, enddata;

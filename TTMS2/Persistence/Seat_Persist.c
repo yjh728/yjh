@@ -15,7 +15,6 @@
 
 static const char SEAT_DATA_FILE[] = "Seat.dat";
 static const char SEAT_DATA_TEMP_FILE[] = "SeatTmp.dat";
-//添加对象主键标识名称
 static const char SEAT_KEY_NAME[] = "Seat";
 
 int Seat_Perst_Insert(seat_t *data) {
@@ -27,7 +26,7 @@ int Seat_Perst_Insert(seat_t *data) {
 		return 0;
 	}
     long key = EntKey_Perst_GetNewKeys(SEAT_KEY_NAME, 1);
-	if(key<=0)			//主键分配失败，直接返回
+	if(key<=0)
 		return 0;
 	data->id = key;
 	rtn = fwrite(data, sizeof(seat_t), 1, fp);
@@ -84,9 +83,7 @@ int Seat_Perst_Update(const seat_t *seatdata) {
 }
 
 int Seat_Perst_DeleteByID(int ID) {
-	//将原始文件重命名，然后读取数据重新写入到数据文件中，并将要删除的实体过滤掉。
 	FILE *fpSour, *fpTarg;
-	//对原始数据文件重命名
 	if (rename(SEAT_DATA_FILE, SEAT_DATA_TEMP_FILE) < 0) {
 		printf("不能打开文件%s!\n", SEAT_DATA_FILE);
 		return 0;
@@ -114,15 +111,12 @@ int Seat_Perst_DeleteByID(int ID) {
 	}
 	fclose(fpTarg);
 	fclose(fpSour);
-	//删除临时文件
 	remove(SEAT_DATA_TEMP_FILE);
 	return found;
 }
 
 int Seat_Perst_DeleteAllByRoomID(int roomID) {
-	//将原始文件重命名，然后读取数据重新写入到数据文件中，并将要删除的实体过滤掉。
 	FILE *fpSour, *fpTarg;
-	//对原始数据文件重命名
 	if (rename(SEAT_DATA_FILE, SEAT_DATA_TEMP_FILE) < 0) {
 		printf("不能重命名文件%s!\n", SEAT_DATA_FILE);
 		return 0;
@@ -150,7 +144,6 @@ int Seat_Perst_DeleteAllByRoomID(int roomID) {
 	}
 	fclose(fpTarg);
 	fclose(fpSour);
-	//删除临时文件
 	remove(SEAT_DATA_TEMP_FILE);
 	return found;
 }
@@ -182,12 +175,11 @@ int Seat_Perst_SelectAll(seat_list_t list) {
 	seat_t data;
 	int recCount = 0;
 	assert(NULL!=list);
-	//文件不存在
 	if (access(SEAT_DATA_FILE, 0))
 		return 0;
 	List_Free(list, seat_node_t);
 	FILE *fp = fopen(SEAT_DATA_FILE, "rb");
-	if (NULL == fp) //文件不存在
+	if (NULL == fp)
 		return 0;
 	while (!feof(fp)) {
 		if (fread(&data, sizeof(seat_t), 1, fp)) {
@@ -211,18 +203,16 @@ int Seat_Perst_SelectByRoomID(seat_list_t list, int roomID) {
 	seat_t data;
 	int recCount = 0;
 	assert(NULL!=list);
-	//文件不存在
-	if (access(SEAT_DATA_FILE, 0)) {
+	if (access(SEAT_DATA_FILE, 0))
 		return 0;
-	}
 	List_Free(list, seat_node_t);
 	FILE *fp = fopen(SEAT_DATA_FILE, "rb");
-	if (NULL == fp) { //文件不存在
+	if (NULL == fp) {
 		return 0;
 	}
 	while (!feof(fp)) {
 		if (fread(&data, sizeof(seat_t), 1, fp))
-			if (data.roomID == roomID)  //若座位是本放映厅的座位，则读出
+			if (data.roomID == roomID)
 			{
 				newNode = (seat_node_t*) malloc(sizeof(seat_node_t));
 				if (!newNode) {

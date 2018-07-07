@@ -1,9 +1,3 @@
-/*
- * Studio_UI.c
- *
- *  Created on: 2015年4月24日
- *      Author: Administrator
- */
 #include "../View/Studio_UI.h"
 
 #include "../Common/List.h"
@@ -22,7 +16,6 @@ void Studio_UI_MgtEntry(void) {
 	List_Init(head, studio_node_t);
 	paging.offset = 0;
 	paging.pageSize = STUDIO_PAGE_SIZE;
-	//载入数据
 	paging.totalRecords = Studio_Srv_FetchAll(head);
 	Paging_Locate_FirstPage(head, paging);
 	do {
@@ -32,7 +25,6 @@ void Studio_UI_MgtEntry(void) {
 		printf("%5s  %-18s  %-10s  %-5s  %-5s\n", "编号", "演出厅名", "行数",
 				"列数", "座位数");
 		printf("------------------------------------------------------------------\n");
-		//显示数据
 		for (i = 0, pos = (studio_node_t *) (paging.curPos);
 				pos != head && i < paging.pageSize; i++) {
 			printf("%5d  %-18s  %-5d  %-5d  %-10d\n", pos->data.id,
@@ -54,14 +46,14 @@ void Studio_UI_MgtEntry(void) {
 
 		printf(
 				"\n==================================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
 		scanf("%c", &choice);
 		fflush(stdin);
 		switch (choice) {
 		if(gl_CurUser.type==9){
 			case 'a':
 			case 'A':
-			if (Studio_UI_Add()) //新添加成功，跳到最后一页显示
+			if (Studio_UI_Add())
 			{
 				paging.totalRecords = Studio_Srv_FetchAll(head);
 				Paging_Locate_LastPage(head, paging, studio_node_t);
@@ -72,7 +64,7 @@ void Studio_UI_MgtEntry(void) {
 			printf("输入ID:");
 			scanf("%d", &id);
 			fflush(stdin);
-			if (Studio_UI_Delete(id)) {	//从新载入数据
+			if (Studio_UI_Delete(id)) {
 				paging.totalRecords = Studio_Srv_FetchAll(head);
 				List_Paging(head, paging, studio_node_t);
 			}
@@ -82,7 +74,7 @@ void Studio_UI_MgtEntry(void) {
 			printf("输入ID:");
 			scanf("%d", &id);
 			fflush(stdin);
-			if (Studio_UI_Modify(id)) {	//从新载入数据
+			if (Studio_UI_Modify(id)) {
 				paging.totalRecords = Studio_Srv_FetchAll(head);
 				List_Paging(head, paging, studio_node_t);
 			}
@@ -111,7 +103,6 @@ void Studio_UI_MgtEntry(void) {
 			break;
 		}
 	} while (choice != 'r' && choice != 'R');
-	//释放链表空间
 	List_Destroy(head, studio_node_t);
 }
 
@@ -169,7 +160,7 @@ int Studio_UI_Modify(int id) {
 	List_Init(list, seat_node_t);
 	seatcount = Seat_Srv_FetchByRoomID(list, rec.id);
 	if (seatcount) {
-		do {//如果座位文件中已有座位信息，则更新的行列必须比以前大，否则不允许更改
+		do {
 			printf("座位行数应该 >= [%d]:", rec.rowsCount);
 			scanf("%d", &(newrow));
 			fflush(stdin);
@@ -203,7 +194,6 @@ int Studio_UI_Modify(int id) {
 int Studio_UI_Delete(int id) {
 	int rtn = 0;
 	if (Studio_Srv_DeleteByID(id)) {
-		//在删除放映厅时，同时根据放映厅id删除座位文件中的座位
 		if (Seat_Srv_DeleteAllByRoomID(id))
 			printf("演出厅座位删除成功!\n");
 		printf(

@@ -16,7 +16,7 @@ void Schedule_UI_Show(void) {
     printf("******************************************************************\n");
     printf("[A]显示所有演出计划|[N]通过剧目名查找演出计划|[R]返回");
     printf("\n==================================================================\n");
-    printf("功能选择:");//Your Choice
+    printf("功能选择:");
     scanf(" %c", &choice);
     fflush(stdin);
     switch (choice) {
@@ -68,7 +68,7 @@ void Schedule_UI_ListAll(void) {
 				"[T]查看演出票|[P]上一页|[N]下一页|[R]返回");
 		printf(
 				"\n==================================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
 		scanf(" %c", &choice);
 		fflush(stdin);
 		switch (choice) {
@@ -223,7 +223,6 @@ int Schedule_UI_query(char *play_name) {
     return recCount;
 }
 
-/*以列表模式显示给定剧目的演出计划信息*/
 void Schedule_UI_ListByPlay(play_t *play, schedule_list_t list,
 		Pagination_t paging) {
     schedule_list_t pos;
@@ -257,7 +256,7 @@ void Schedule_UI_ListByPlay(play_t *play, schedule_list_t list,
 				"[P]上一页|[N]下一页|[R]返回");
 		printf(
 				"\n==================================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
 		scanf("%c", &choice);
 		fflush(stdin);
 		switch (choice) {
@@ -311,13 +310,13 @@ void Schedule_UI_MgtEntry(int play_id) {
 				"[P]上一页|[N]下一页|[A]添加|[D]删除|[U]修改|[T]查询|[R]返回");
 		printf(
 				"\n==================================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
 		scanf(" %c", &choice);
 		fflush(stdin);
         switch (choice) {
             case 'a':
             case 'A':
-                if (Schedule_UI_Add(play_id)) //新添加成功，跳到最后一页显示
+                if (Schedule_UI_Add(play_id))
                 {
                     paging.totalRecords = Schedule_Srv_FetchByPlay(sch, play_id);
                     Paging_Locate_LastPage(sch, paging, schedule_node_t);
@@ -328,7 +327,7 @@ void Schedule_UI_MgtEntry(int play_id) {
                 printf("输入ID:");
                 scanf("%d", &id);
                 fflush(stdin);
-                if (Schedule_UI_Delete(id)) {	//重新载入数据
+                if (Schedule_UI_Delete(id)) {
                     paging.totalRecords = Schedule_Srv_FetchByPlay(sch, play_id);
                     List_Paging(sch, paging, schedule_node_t);
                 }
@@ -338,7 +337,7 @@ void Schedule_UI_MgtEntry(int play_id) {
                 printf("输入演出计划ID:");
                 scanf("%d", &id);
                 fflush(stdin);
-                if (Schedule_UI_Modify(id)) {	//重新载入数据
+                if (Schedule_UI_Modify(id)) {
                     paging.totalRecords = Schedule_Srv_FetchByPlay(sch, play_id);
                     List_Paging(sch, paging, schedule_node_t);
                 }

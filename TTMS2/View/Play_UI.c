@@ -1,9 +1,7 @@
 #include "Play_UI.h"
 #include "Schedule_UI.h"
-
 #include "../Common/List.h"
 #include "../Service/Play.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,11 +14,8 @@ void Play_UI_MgtEntry() {
 	List_Init(head,play_node_t);
 	paging.offset = 0;
 	paging.pageSize = PLAY_PAGE_SIZE;
-
 	paging.totalRecords = Play_Srv_FetchAll(head);
-
 	Paging_Locate_FirstPage(head,paging);
-
 	do{
 		system("cls");
 		printf("\n============================================================\n");
@@ -41,13 +36,13 @@ void Play_UI_MgtEntry() {
 		printf("*************************************************************\n");
 		printf("[P]上一页|[N]下一页|[A]添加|[D]删除|[U]修改|[Q]查询|[Y]安排演出|[R]返回");
 		printf("\n===========================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
         scanf(" %c", &choice);
         fflush(stdin);
 		switch (choice) {
             case 'a':
             case 'A':
-                if (Play_UI_Add()) //新添加成功，跳到最后一页显示
+                if (Play_UI_Add())
                 {
                     paging.totalRecords = Play_Srv_FetchAll(head);
                     Paging_Locate_LastPage(head, paging, play_node_t);
@@ -58,7 +53,7 @@ void Play_UI_MgtEntry() {
                 printf("输入ID:");
                 scanf("%d", &id);
                 fflush(stdin);
-                if (Play_UI_Delete(id)) {	//重新载入数据
+                if (Play_UI_Delete(id)) {
                     paging.totalRecords = Play_Srv_FetchAll(head);
                     List_Paging(head, paging, play_node_t);
                 }
@@ -68,7 +63,7 @@ void Play_UI_MgtEntry() {
                 printf("输入剧目ID:");
                 scanf("%d", &id);
                 fflush(stdin);
-                if (Play_UI_Modify(id)) {	//重新载入数据
+                if (Play_UI_Modify(id)) {
                     paging.totalRecords = Play_Srv_FetchAll(head);
                     List_Paging(head, paging, play_node_t);
                 }
@@ -210,7 +205,7 @@ int Play_UI_Delete(int id) {
 			printf("演出计划删除成功!按回车返回!\n");
             rtn = 1;
 		} else {
-            printf("该演出计划不存在!按回车返回!\n");//The room does not exist!\nPress [Enter] key to return
+            printf("该演出计划不存在!按回车返回!\n");
         }
 	} else{
 		printf("剧目删除失败!\n");
@@ -220,14 +215,6 @@ int Play_UI_Delete(int id) {
 	return rtn;
 }
 
-/*
- * Function:    Play_UI_Query
- * Function ID:	TTMS_SCU_Play_UI_Qry
- * Description: 按照ID号查询剧目信息
- * Input:       待查找的剧目ID号
- * Output:      查找到的剧目信息
- * Return:      0表示未找到，1表示找到了
- */
 int Play_UI_Query(int id){
     int rtn=0;
     play_t data;

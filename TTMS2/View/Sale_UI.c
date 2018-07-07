@@ -6,14 +6,12 @@
 #include "../Service/Seat.h"
 #include "../Service/Studio.h"
 #include "../Service/Sale.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 extern account_t gl_CurUser;
 static const int SALESANALYSIS_PAGE_SIZE = 6;
 
-//管理售票的主界面
 void Sale_UI_MgtEntry(void){
     play_list_t head, pos;
 	Pagination_t paging;
@@ -44,7 +42,7 @@ void Sale_UI_MgtEntry(void){
         printf("******************************************************************\n");
         printf("[S]管理票(售票/退票)|[P]上一页|[N]下一页|[R]返回");
         printf("\n==================================================================\n");
-        printf("功能选择:");//Your Choice
+        printf("功能选择:");
         scanf("%c", &choice);
         fflush(stdin);
         switch (choice) {
@@ -67,13 +65,11 @@ void Sale_UI_MgtEntry(void){
                     Paging_Locate_OffsetPage(head,paging,1,play_node_t);
                 }
                 break;
-            //暂时砍掉F
         }
     } while(choice != 'R' && choice != 'r');
     List_Destroy(head,play_node_t);
 }
 
-//根据剧目ID显示演出计划
 void Sale_UI_ShowScheduler(int playID){
     play_t buf;
 	schedule_list_t head, pos;
@@ -140,7 +136,6 @@ void Sale_UI_ShowScheduler(int playID){
 	List_Destroy(head,schedule_node_t);
 }
 
-//售票界面
 int Sale_UI_SellTicket(int schedule_id){
     system("cls");
     if(gl_CurUser.type != USR_CLERK){
@@ -184,7 +179,6 @@ int Sale_UI_SellTicket(int schedule_id){
 	}
 }
 
-//退票
 int Sale_UI_ReturnTicket(int schedule_id){
     int id;
 	ticket_t tic;

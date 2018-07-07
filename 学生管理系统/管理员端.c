@@ -3,11 +3,12 @@
 extern Linklist_student head ;
 extern Linklist_aap aap_s ;
 extern Linklist_aap aap_t ;
-void manager_interface() {
+void manager_interface() {			//管理员端
     manager_login() ;
     manager_power() ;
 }
-void manager_login () {
+
+void manager_login () {				//管理员登录验证
     system("cls") ;
     char a[MAX], b[MAX] ;
     FILE * fp = fopen("manager_cAp.txt", "rt") ;
@@ -44,7 +45,8 @@ void manager_login () {
     puts("\n您已经输错三次!系统将强制退出!") ;
     exit(1) ;
 }
-void manager_power () {
+
+void manager_power () {				//管理员功能
     system("cls") ;
     puts("\n\n\n\n\n\n\t\t\t\t\t欢迎进入管理员界面") ;
     puts("\t\t\t\t    ****************************") ;
@@ -88,7 +90,8 @@ void manager_power () {
     }
     while (x != 0) ;
 }
-void password_change() {
+
+void password_change() {			//管理员密码修改
     char a[MAX], b[MAX] ;
     printf("\n\n\n\n\n\n\t\t\t\t\t请输入修改后的密码:\n\t\t\t\t\t") ;
     password_input(a) ;
@@ -103,7 +106,8 @@ void password_change() {
     }
     fclose(fp) ;
 }
-void student_handle() {
+	
+void student_handle() {				//对学生的操作
     system ("cls") ;
     puts ("\n\n\n\n\n\n\t\t\t\t\t     **************************") ;
     puts("\t\t\t\t\t           1.修改学生账号") ;
@@ -166,7 +170,8 @@ void student_handle() {
     }
     while (x != 0) ;
 }
-void teacher_handle() {
+
+void teacher_handle() {					//对教师的操作
     system ("cls") ;
     puts ("\n\n\n\n\n\n\t\t\t\t\t     **************************") ;
     puts("\t\t\t\t\t\t  1.修改教师账号") ;

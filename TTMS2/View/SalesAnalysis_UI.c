@@ -1,5 +1,4 @@
 #include "SalesAnalysis_UI.h"
-
 #include "../Common/list.h"
 #include "../Service/Account.h"
 #include "../Service/Ticket.h"
@@ -9,8 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../Service/SalesAnalysis.h"
+
 static const int SALESANALYSIS_PAGE_SIZE = 5;
-//统计票房界面
+
 void SalesAnalysis_UI_MgtEntry (){
     salesanalysis_list_t head,pos;
 	Pagination_t paging;
@@ -37,7 +37,7 @@ void SalesAnalysis_UI_MgtEntry (){
 		printf("******************************************************************\n");
 		printf("[P]上一页|[N]下一页|[R]返回");
 		printf("\n==================================================================\n");
-		printf("功能选择:");//Your Choice
+		printf("功能选择:");
 		scanf("%c", &choice);
 		fflush(stdin);
 		switch(choice){

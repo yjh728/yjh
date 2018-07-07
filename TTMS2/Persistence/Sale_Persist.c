@@ -11,7 +11,7 @@ static const char SALE_DATA_FILE[] = "Sale.dat";
 static const char SALE_DATA_TEMP_FILE[] = "SaleTmp.dat";
 static const char SALE_KEY_NAME[] = "Sale";
 static const char TICKET_DATA_FILE[] = "Ticket.dat";
-//存储新订单
+
 int Sale_Perst_Insert (sale_t *data){
 	FILE *fp = fopen(SALE_DATA_FILE, "ab");
 	if (!fp) {
@@ -25,7 +25,6 @@ int Sale_Perst_Insert (sale_t *data){
 	return rtn;
 }
 
-//更新票状态
 int Ticket_Perst_Update (const ticket_t *data){
 	assert(NULL!=data);
 	FILE *fp = fopen(TICKET_DATA_FILE, "rb+");
@@ -47,14 +46,13 @@ int Ticket_Perst_Update (const ticket_t *data){
 	return rtn;
 }
 
-//根据演出计划ID载入票的数据
 int Ticket_Srv_SelBySchID(int id, ticket_list_t list){
 	ticket_node_t *newNode;
 	ticket_t data;
 	int recCount = 0;
 	List_Free(list, ticket_node_t);
 	FILE *fp = fopen(TICKET_DATA_FILE, "rb");
-	if (NULL == fp) { //文件不存在
+	if (NULL == fp) {
 		printf("不能打开文件%s!\n", TICKET_DATA_FILE);
 		return 0;
 	}
@@ -73,7 +71,7 @@ int Ticket_Srv_SelBySchID(int id, ticket_list_t list){
 	fclose(fp);
 	return recCount;
 }
-//根据票ID载入销售记录
+
 int Sale_Perst_SelByTicketID (int ticket_id, sale_t *sale){
 	assert(NULL!=sale);
 	FILE *fp = fopen(SALE_DATA_FILE, "rb");
@@ -95,7 +93,6 @@ int Sale_Perst_SelByTicketID (int ticket_id, sale_t *sale){
 	return found;
 }
 
-//根据ID载入销售记录
 int Sale_Perst_SelByID (sale_list_t list, int usrID){
 	int recCount = 0;
 	if (access(SALE_DATA_FILE, 0))

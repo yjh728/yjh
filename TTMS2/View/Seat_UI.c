@@ -11,14 +11,13 @@
 #include "../Common/List.h"
 #include <stdio.h>
 
-//根据状态返回对应表示状态符号
 char Seat_UI_Status2Char(seat_status_t status) {
 	char statusChar;
 	switch (status) {
-	case SEAT_GOOD:		//有座位
+	case SEAT_GOOD:
 		statusChar = '#';
 		break;
-	case SEAT_BROKEN:	//损坏的座位
+	case SEAT_BROKEN:
 		statusChar = '~';
 		break;
 	case SEAT_NONE:
@@ -29,14 +28,13 @@ char Seat_UI_Status2Char(seat_status_t status) {
 	return statusChar;
 }
 
-//根据状态符号返回桌位状态
 seat_status_t Seat_UI_Char2Status(char statusChar) {
 	seat_status_t status;
 	switch (statusChar) {
-	case '#':		//有座位
+	case '#':
 		status = SEAT_GOOD;
 		break;
-	case '~':	//损坏的座位
+	case '~':
 		status = SEAT_BROKEN;
 		break;
 	default:
@@ -53,8 +51,8 @@ void Seat_UI_MgtEntry(int roomID) {
 	int changedCount = 0;
 	studio_t studioRec;
 
-	if (!Studio_Srv_FetchByID(roomID, &studioRec)) {  //获得对应id放映厅的信息
-		printf("该放映厅不存在!\n按[Enter]键返回!\n");//The room does not exist!\nPress [Enter] key to return
+	if (!Studio_Srv_FetchByID(roomID, &studioRec)) {
+		printf("该放映厅不存在!\n按[Enter]键返回!\n");
 		getchar();
 		return;
 	}
@@ -63,13 +61,11 @@ void Seat_UI_MgtEntry(int roomID) {
 	seat_node_t *p;
 
 	List_Init(list, seat_node_t);
-	//选择放映厅的所有座位
 	seatCount = Seat_Srv_FetchByRoomID(list, roomID);
 
-	if (!seatCount) {		//若放映厅还没有设置座位，则自动生成座位
+	if (!seatCount) {
 		seatCount = Seat_Srv_RoomInit(list, roomID, studioRec.rowsCount,
 				studioRec.colsCount);
-		//修改演出厅里的座位数量
 		studioRec.seatsCount = seatCount;
 		Studio_Srv_Modify(&studioRec);
 	}
@@ -78,15 +74,12 @@ void Seat_UI_MgtEntry(int roomID) {
 		system("cls");
 		printf("\n==================================================================\n");
 		printf("********************  放映厅 %d 座位列表  **************************\n",
-				roomID);//Room %d Seat List
-
+				roomID);
 		printf("%5c", ' ');
 		for (i = 1; i <= studioRec.colsCount; i++) {
 			printf("%3d", i);
 		}
-		printf(
-				"\n------------------------------------------------------------------\n");
-		//显示数据
+		printf("\n------------------------------------------------------------------\n");
 		for (i = 1; i <= studioRec.rowsCount; i++) {
 			j = 1;
 			printf("%d行:%c", i, ' ');
@@ -115,7 +108,6 @@ void Seat_UI_MgtEntry(int roomID) {
 					studioRec.colsCount);
 			if (changedCount > 0) {
 				seatCount += changedCount;
-				//修改演出厅里的座位数量
 				studioRec.seatsCount = seatCount;
 				Studio_Srv_Modify(&studioRec);
 			}
@@ -126,7 +118,6 @@ void Seat_UI_MgtEntry(int roomID) {
 					studioRec.colsCount);
 			if (changedCount > 0) {
 				seatCount -= changedCount;
-				//修改演出厅里的座位数量
 				studioRec.seatsCount = seatCount;
 				Studio_Srv_Modify(&studioRec);
 			}
@@ -137,53 +128,45 @@ void Seat_UI_MgtEntry(int roomID) {
 			break;
 		}
 	} while (choice != 'r' && choice != 'R');
-
-	//释放链表空间
 	List_Destroy(list, seat_node_t);
 }
 
-int Seat_UI_Add(seat_list_t list, int roomID, int row, int column) {  //输入一个座位
+int Seat_UI_Add(seat_list_t list, int roomID, int row, int column) {
 	seat_t rec;
 	seat_node_t *p;
 	int newRecCount = 0;
 	char choice;
 	do {
 		system("cls");
-		printf(
-				"\n==================================================================\n");
-		printf(
-				"***********************  添加新座位  ***************************\n");//Add New Seat
-		printf(
-				"------------------------------------------------------------------\n");
-
+		printf("\n==================================================================\n");
+		printf("***********************  添加新座位  ***************************\n");//Add New Seat
+		printf("------------------------------------------------------------------\n");
 		do {
-			printf(
-					"排数不应超出 %d 列数不应超出 %d!\n",
-					row, column);//Row shouldn't great than %d and Column shouldn't great than
-			printf("座位排数:");//Row of the Seat
+			printf("排数不应超出 %d 列数不应超出 %d!\n",row, column);
+			printf("座位排数:");
 			scanf("%d", &(rec.row));
             fflush(stdin);
-            printf("座位列数:");//Column of the Seat
+            printf("座位列数:");
 			scanf("%d", &(rec.column));
             fflush(stdin);
 		} while (rec.row > row || rec.column > column);
 
 		p = Seat_Srv_FindByRowCol(list, rec.row, rec.column);
-		if (p) {						//若输入的行列号所对应的座位已存在，则不能插入
-			printf("该座位已存在 \n");//The seat is already exist!
+		if (p) {
+			printf("该座位已存在 \n");
 			continue;
 		}
 		rec.roomID = roomID;
-		rec.status = SEAT_GOOD;    //插入的新座位的状态默认为好座位
+		rec.status = SEAT_GOOD;
 		printf("==================================================================\n");
 		if (Seat_Srv_Add(&rec)) {
 			newRecCount++;
-			printf("新座位添加成功\n");//The new seat added successfully!
+			printf("新座位添加成功\n");
 			p = (seat_node_t*) malloc(sizeof(seat_node_t));
 			p->data = rec;
-			Seat_Srv_AddToSoftedList(list, p); //若增加了新座位，需更新list
+			Seat_Srv_AddToSoftedList(list, p);
 		} else
-			printf("新座位添加失败!\n");//The new seat added failed!
+			printf("新座位添加失败!\n");
 		printf(
 				"------------------------------------------------------------------\n");
 		printf("[A]添加更多, [R]返回:");
@@ -203,34 +186,33 @@ int Seat_UI_Modify(seat_list_t list, int row, int column) {
 	printf(
 			"\n==================================================================\n");
 	printf(
-			"***************************  修改座位 ************************\n");//Update Seat
+			"***************************  修改座位 ************************\n");
 	printf(
 			"------------------------------------------------------------------\n");
 
 	do {
-		do {				//更新的座位行列信息不能超出放映厅的行列数
+		do {
 			printf(
-					"排数不应超出 %d 列数不应超出 %d!\n",//Row shouldn't great than %d and Column shouldn't great than %d!\n
+					"排数不应超出 %d 列数不应超出 %d!\n",
 					row, column);
-			printf("座位排数 :");//Row of Seat
+			printf("座位排数 :");
 			scanf("%d", &newrow);
             fflush(stdin);
-			printf("座位列数 :");//Column of Seat
+			printf("座位列数 :");
 			scanf("%d", &newcolumn);
             fflush(stdin);
 		} while (newrow > row || newcolumn > column);
 
 		p = Seat_Srv_FindByRowCol(list, newrow, newcolumn);
 		if (p) {
-			printf("座位情况 [%d,%d]: [%c]:", newrow, newcolumn,//State of Seat
-					Seat_UI_Status2Char(p->data.status));
+			printf("座位情况 [%d,%d]: [%c]:", newrow, newcolumn,Seat_UI_Status2Char(p->data.status));
 			p->data.status = Seat_UI_Char2Status(getchar());
 			printf("-------------------------------------------------------------------\n");
 			if (Seat_Srv_Modify(&(p->data))) {
 				rtn = 1;
-				printf("该座位更新成功!\n");//The seat data updated successfully
+				printf("该座位更新成功!\n");
 			} else
-				printf("该座位更新失败!\n");//The seat data updated failed
+				printf("该座位更新失败!\n");
 		} else
 			printf("The seat is not exist!\n");
 		printf(
@@ -253,12 +235,11 @@ int Seat_UI_Delete(seat_list_t list, int row, int column) {
 		printf("**************************  删除座位  ************************\n");//Delete  Seat
 		printf("------------------------------------------------------------------\n");
 		do {
-			printf("排数不应超出 %d 列数不应超出 %d!\n",//Row shouldn't great than %d and Column shouldn't great than %d!\n
-					row, column);
-			printf("座位排数:");//Row of the Seat
+			printf("排数不应超出 %d 列数不应超出 %d!\n",row, column);
+			printf("座位排数:");
 			scanf("%d", &(newrow));
             fflush(stdin);
-			printf("座位列数:");//Column of the Seat
+			printf("座位列数:");
 			scanf("%d", &(newcolumn));
             fflush(stdin);
 		} while (newrow > row || newcolumn > column);
@@ -267,9 +248,9 @@ int Seat_UI_Delete(seat_list_t list, int row, int column) {
 		if (p) {
 			printf("==================================================================\n");
 			if (Seat_Srv_DeleteByID(p->data.id)) {
-				printf("该座位删除成功!\n");//The seat deleted successfully
+				printf("该座位删除成功!\n");
 				delSeatCount++;
-				List_FreeNode(p);	//释放结点座位结点p
+				List_FreeNode(p);
 			}
 		} else {
 			printf("该座位不存在!\n");
