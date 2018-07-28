@@ -1,6 +1,9 @@
 package cn.eight.Set;
 
+import jdk.nashorn.api.tree.Tree;
+
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 class Z implements Comparable {
@@ -22,7 +25,7 @@ class Z implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return 1;
+        return 0;
     }
 }
 
